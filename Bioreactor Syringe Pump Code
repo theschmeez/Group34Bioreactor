@@ -7,6 +7,7 @@ step = 23
 EN_pin= 24
 
 ### USER INPUTS ###
+capacity = 60 # capacity of syringe in use (in ml)
 diameter = 26.72 # mm
 spin = True #True = aspirate. False = disepense
 #flowrate 
@@ -27,7 +28,7 @@ GPIO.output(EN_pin, GPIO.LOW)
 for i in range(19): #index is volume2 number of revolutions
     mymotortest.motor_go(spin, # variable for controlling syringe direction
                         "Full",
-                        3525,
+                        800,
                         .0001, # speed2 step delay: increase to slow down motor and vice versa
                         False,
                         .0001) # speed2 should be the same as step delay ^^
