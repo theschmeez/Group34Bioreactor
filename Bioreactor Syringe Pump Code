@@ -1,10 +1,15 @@
+# This code has been copied from the following URL: https://makersportal.com/blog/raspberry-pi-stepper-motor-control-with-nema-17
+# The loop and overheatingprevention variable were figured out by project members and collaborators
+# University of California, San Diego - Bioengineering 2021-2022 Senior Design Project - Team 8
+
 import RPi.GPIO as GPIO
 from RpiMotorLib import RpiMotorLib
 import time
 
-direction = 22
-step = 23
-EN_pin= 24
+#define GPIO pins
+direction = 22 # Direction (DIR) GPIO Pin
+step = 23 # Step GPIO Pin
+EN_pin= 24 # Enable pin (LOW to enable)
 
 ### USER INPUTS ###
 diameter = 26.72 # mm
@@ -19,20 +24,23 @@ area = (diameter/2)**2 * 3.14159
 #speed2  # conversion to seconds per step. this is the step delay value
 #volume2 # converting volume to revolutions (factoring in diameter). this is the revolution value
 
+# Declare a instance of class pass GPIO pins numbers and the motor type
 mymotortest = RpiMotorLib.A4988Nema(direction, step, (21, 21, 21), "DRV8825")
 GPIO.setup(EN_pin, GPIO.OUT)
 
-GPIO.output(EN_pin, GPIO.LOW)
+GPIO.output(EN_pin, GPIO.LOW) # pull enable to low to enable motor
 
 for i in range(19): #index is volume2 number of revolutions
     mymotortest.motor_go(spin, # variable for controlling syringe direction
                         "Full",
-                        3525,
+                        800, # number of steps
                         .0001, # speed2 step delay: increase to slow down motor and vice versa
-                        False,
-                        .0001) # speed2 should be the same as step delay ^^
+                        False, # True = print verbose output # Honestly, this prints a lot of 
+                                # useful information. 
+                        .0001) # speed2 should be the same as step delay ^^ 
+                                # In the docs, it says this parameter is initial delay [sec]
     
     for j in range(1000): #prevents motor from overheating
         pass
 
-GPIO.cleanup()
+GPIO.cleanup() # Clear GPIO allocations after run 
