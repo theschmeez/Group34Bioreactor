@@ -12,6 +12,7 @@ step = 23 # Step GPIO Pin
 EN_pin= 24 # Enable pin (LOW to enable)
 
 ### USER INPUTS ###
+capacity = 60 # capacity of syringe in use (in ml)
 diameter = 26.72 # mm
 spin = True #True = aspirate. False = disepense
 #flowrate 
