@@ -1,0 +1,38 @@
+import RPi.GPIO as GPIO
+from RpiMotorLib import RpiMotorLib
+import time
+
+direction = 22
+step = 23
+EN_pin= 24
+
+### USER INPUTS ###
+diameter = 26.72 # mm
+spin = True #True = aspirate. False = disepense
+#flowrate 
+#volume # client volume
+#overheatprevention # usually 1000
+
+### CALCULATION OUTPUT ###
+area = (diameter/2)**2 * 3.14159
+#speed = flowrate/area # flowrate = speed times area
+#speed2  # conversion to seconds per step. this is the step delay value
+#volume2 # converting volume to revolutions (factoring in diameter). this is the revolution value
+
+mymotortest = RpiMotorLib.A4988Nema(direction, step, (21, 21, 21), "DRV8825")
+GPIO.setup(EN_pin, GPIO.OUT)
+
+GPIO.output(EN_pin, GPIO.LOW)
+
+for i in range(19): #index is volume2 number of revolutions
+    mymotortest.motor_go(spin, # variable for controlling syringe direction
+                        "Full",
+                        3525,
+                        .0001, # speed2 step delay: increase to slow down motor and vice versa
+                        False,
+                        .0001) # speed2 should be the same as step delay ^^
+    
+    for j in range(1000): #prevents motor from overheating
+        pass
+
+GPIO.cleanup()
