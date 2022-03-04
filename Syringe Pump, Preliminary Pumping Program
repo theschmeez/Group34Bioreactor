@@ -12,17 +12,19 @@ step = 23 # Step GPIO Pin
 EN_pin= 24 # Enable pin (LOW to enable)
 
 ### USER INPUTS ###
-capacity = 60 # capacity of syringe in use (in ml)
-diameter = 26.72 # mm
-spin = True #True = aspirate. False = disepense
-#flowrate 
-#volume # client volume
+#diameter = 2.86 # mm #cm 
+#spin = True #True = aspirate. False = disepense
+#flowrate =  #cm^3/s #ml/hr cm^3/hr # flowrate = speed times area
+#volume = 60 
 #overheatprevention # usually 1000
 
 ### CALCULATION OUTPUT ###
-area = (diameter/2)**2 * 3.14159
-#speed = flowrate/area # flowrate = speed times area
-#speed2  # conversion to seconds per step. this is the step delay value
+#area = (diameter/2)**2 * 3.141519
+#cm_step = .1337/ 800
+#speed = flowrate/area 
+#speed2  # conversion to seconds per step. this is the step delay value.
+#speed2 = cm_step / speed  
+
 #volume2 # converting volume to revolutions (factoring in diameter). this is the revolution value
 
 # Declare a instance of class pass GPIO pins numbers and the motor type
